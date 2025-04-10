@@ -1,0 +1,196 @@
+/* === Modal Styles === */
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7); /* Darker overlay */
+    opacity: 0;
+    transition: opacity var(--transition-speed) ease-in-out;
+    backdrop-filter: blur(3px); /* Frosted glass effect */
+    -webkit-backdrop-filter: blur(3px);
+}
+
+.modal.show {
+    display: flex; /* Use flex to center content */
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+}
+
+.modal-content {
+    background-color: var(--surface-color);
+    margin: auto;
+    padding: 30px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    width: 90%;
+    max-width: 450px;
+    position: relative;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    transform: scale(0.95);
+    transition: transform var(--transition-speed) cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Pop effect */
+}
+
+.modal.show .modal-content {
+    transform: scale(1);
+}
+
+.modal-content h4, #confirm-modal-text {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: var(--primary-text-color);
+    font-weight: 400;
+    font-size: 1.3em;
+}
+
+#confirm-modal-text {
+    font-size: 1.1em;
+    margin-bottom: 25px;
+}
+
+.modal-content input[type="text"] {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 20px;
+    background-color: var(--bg-color); /* Slightly darker input background */
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    color: var(--primary-text-color);
+    font-size: 1em;
+    outline: none;
+    transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+}
+
+.modal-content input[type="text"]:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(163, 122, 204, 0.3);
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.modal-content button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 0.95em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease, transform 0.1s ease;
+}
+
+.modal-content button#modal-confirm-button,
+.modal-content button#confirm-modal-confirm-button {
+    background-color: var(--accent-color);
+    color: #ffffff;
+}
+.modal-content button#modal-confirm-button:hover,
+.modal-content button#confirm-modal-confirm-button:hover {
+    background-color: var(--accent-color-hover);
+}
+
+.modal-content button.cancel,
+.modal-content button#modal-cancel-button,
+.modal-content button#confirm-modal-cancel-button {
+    background-color: var(--border-color); /* Greyed out */
+    color: var(--primary-text-color);
+}
+.modal-content button.cancel:hover,
+.modal-content button#modal-cancel-button:hover,
+.modal-content button#confirm-modal-cancel-button:hover {
+    background-color: #4a505c; /* Slightly lighter grey */
+}
+
+.modal-content button:active {
+    transform: scale(0.97);
+}
+
+.close-button {
+    color: var(--secondary-text-color);
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.8em;
+    font-weight: bold;
+    line-height: 1;
+    cursor: pointer;
+    transition: color var(--transition-speed) ease;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: var(--primary-text-color);
+    text-decoration: none;
+}
+
+.error-message {
+    color: var(--error-color);
+    font-size: 0.9em;
+    margin-top: -10px; /* Pull up below input */
+    margin-bottom: 15px;
+    min-height: 1.1em; /* Reserve space */
+}
+
+/* Link Modal Specific Styles */
+#link-modal .modal-content {
+    max-width: 400px;
+}
+
+#link-modal input[type="text"] {
+    margin-bottom: 15px;
+}
+
+#link-modal input[type="text"]:last-of-type {
+    margin-bottom: 20px;
+}
+
+#link-modal .modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+#link-modal button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: background-color var(--transition-speed) ease;
+}
+
+#link-modal button.cancel {
+    background-color: var(--border-color);
+    color: var(--primary-text-color);
+}
+
+#link-modal button.cancel:hover {
+    background-color: #4a505c;
+}
+
+#link-modal #link-confirm-button {
+    background-color: var(--accent-color);
+    color: #ffffff;
+}
+
+#link-modal #link-confirm-button:hover {
+    background-color: var(--accent-color-hover);
+}
+
+#link-error {
+    color: var(--error-color);
+    font-size: 0.9em;
+    margin-top: -10px;
+    margin-bottom: 15px;
+    min-height: 1.1em;
+} 

@@ -1,0 +1,103 @@
+/* === Authentication View Styles === */
+
+#auth-view {
+    /* width: 100%; */ /* REMOVED - Allow shrinking */
+    /* height: 100%; */ /* REMOVED - Allow shrinking */
+    background-color: var(--bg-color);
+    padding: 40px; /* Keep padding around the content */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Add border-radius for better appearance when centered */
+    border-radius: var(--border-radius);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* Optional: Add shadow */
+}
+
+#login-section, #register-section { /* Style the new sections */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content horizontally */
+    width: 100%;
+    max-width: 350px; /* Limit width */
+}
+
+#auth-view h2 {
+    margin-bottom: 25px; /* Adjusted margin */
+    color: var(--primary-text-color);
+    font-weight: 300; /* Lighter font weight */
+    font-size: 1.8em; /* Adjusted size */
+    text-align: center;
+}
+
+#login-form, #register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    /* max-width: 350px; Removed, handled by section */
+    margin-bottom: 20px;
+}
+
+#auth-view input[type="text"],
+#auth-view input[type="email"],
+#auth-view input[type="password"] {
+    padding: 12px 15px;
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    color: var(--primary-text-color);
+    font-size: 1em;
+    outline: none;
+    transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+}
+
+#auth-view input[type="text"]:focus,
+#auth-view input[type="email"]:focus,
+#auth-view input[type="password"]:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(163, 122, 204, 0.3); /* Subtle glow */
+}
+
+#auth-view button {
+    padding: 12px 15px;
+    background-color: var(--accent-color);
+    border: none;
+    border-radius: var(--border-radius);
+    color: #ffffff;
+    font-size: 1em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color var(--transition-speed) ease, transform 0.1s ease;
+}
+
+#auth-view button:hover {
+    background-color: var(--accent-color-hover);
+}
+
+#auth-view button:active {
+    transform: scale(0.98);
+}
+
+#auth-message {
+    margin-top: 15px;
+    min-height: 1.2em; /* Reserve space */
+    color: var(--error-color);
+    text-align: center;
+}
+
+.toggle-auth { /* Style for the toggle links */
+    margin-top: 15px;
+    font-size: 0.9em;
+    color: var(--secondary-text-color);
+    text-align: center;
+}
+
+.toggle-auth a {
+    color: var(--accent-color);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.toggle-auth a:hover {
+    text-decoration: underline;
+} 

@@ -1,0 +1,25 @@
+{
+  "name": "electron-note-app",
+  "version": "1.0.0",
+  "description": "A modern dark-themed note-taking app with folder system and text styling.",
+  "main": "src/main/main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "electron",
+    "notes",
+    "app"
+  ],
+  "author": "Your Name",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^28.0.0"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "mongodb": "^6.3.0",
+    "quill": "^2.0.3"
+  }
+}

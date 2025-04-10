@@ -1,0 +1,353 @@
+/* === Editor Styles === */
+
+#editor-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: var(--surface-color); /* Match sidebar surface */
+    border-left: 1px solid var(--border-color); /* Add subtle separator */
+    position: relative; /* For placeholder */
+    overflow: hidden; /* Contain toolbar and editor */
+}
+
+#editor-placeholder-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--secondary-text-color);
+    font-size: 1.1em;
+    text-align: center;
+    padding: 20px;
+    display: none; /* Hidden by default */
+    pointer-events: none; /* Don't interfere with clicks */
+    z-index: 1; /* Above editor content if it exists briefly */
+}
+
+#editor-container.show-placeholder #editor-placeholder-message {
+    display: block;
+}
+
+#editor-container.show-placeholder #toolbar,
+#editor-container.show-placeholder #editor {
+    opacity: 0; /* Hide editor/toolbar when placeholder is shown */
+    pointer-events: none;
+}
+
+#editor-container:not(.show-placeholder) #toolbar,
+#editor-container:not(.show-placeholder) #editor {
+    opacity: 1;
+    pointer-events: auto;
+    transition: opacity 0.3s ease;
+}
+
+
+/* --- Quill Editor Styling --- */
+#toolbar {
+    /* border-bottom: 1px solid var(--border-color); */ /* Moved border to .ql-toolbar */
+    flex-shrink: 0;
+    /* background-color: var(--surface-color); Removed, handled by .ql-toolbar */
+    /* padding: 5px; Removed, handled by .ql-toolbar */
+}
+
+#editor {
+    flex-grow: 1;
+    /* background-color: var(--bg-color); Removed, handled by .ql-editor */
+    /* color: var(--primary-text-color); Removed, handled by .ql-editor */
+    /* border: none; Handled by .ql-container */
+    overflow-y: auto; /* Allow editor itself to scroll */
+    height: 100%; /* Ensure it takes full height */
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- Quill Editor Theme Overrides --- */
+
+/* Toolbar */
+.ql-toolbar.ql-snow {
+    background-color: var(--surface-color);
+    border: none; /* Remove default top border */
+    border-bottom: 1px solid var(--border-color); /* Add bottom border */
+    padding: 10px 16px;
+    border-top-left-radius: 0; /* Match container */
+    border-top-right-radius: 0; /* Match container */
+    box-sizing: border-box;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ql-toolbar .ql-formats {
+    margin-right: 8px; /* Reduced spacing */
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+/* Icons */
+.ql-toolbar .ql-stroke {
+    stroke: var(--secondary-text-color);
+    transition: stroke var(--transition-speed) ease;
+}
+.ql-toolbar .ql-fill {
+    fill: var(--secondary-text-color);
+    transition: fill var(--transition-speed) ease;
+}
+.ql-toolbar .ql-picker-label { /* Dropdown labels */
+    color: var(--secondary-text-color);
+    transition: color var(--transition-speed) ease;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+.ql-toolbar .ql-picker-label::before {
+    line-height: 24px; /* Align text better */
+}
+
+/* Buttons and Pickers Hover/Active/Selected */
+.ql-toolbar button,
+.ql-toolbar .ql-picker-label {
+    border-radius: 4px;
+    transition: all var(--transition-speed) ease;
+    background-color: transparent;
+    border: none;
+    padding: 4px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Override Quill's default hover styles */
+.ql-toolbar button:hover,
+.ql-toolbar .ql-picker-label:hover,
+.ql-toolbar button:focus,
+.ql-toolbar .ql-picker-label:focus {
+    color: var(--accent-color-hover) !important;
+    outline: none;
+    background-color: rgba(138, 43, 226, 0.1);
+}
+
+/* Override Quill's default icon colors on hover */
+.ql-toolbar button:hover .ql-stroke,
+.ql-toolbar .ql-picker-label:hover .ql-stroke,
+.ql-toolbar button:focus .ql-stroke,
+.ql-toolbar .ql-picker-label:focus .ql-stroke {
+    stroke: var(--accent-color-hover) !important;
+}
+
+.ql-toolbar button:hover .ql-fill,
+.ql-toolbar .ql-picker-label:hover .ql-fill,
+.ql-toolbar button:focus .ql-fill,
+.ql-toolbar .ql-picker-label:focus .ql-fill {
+    fill: var(--accent-color-hover) !important;
+}
+
+/* Active/Selected State */
+.ql-toolbar button.ql-active,
+.ql-toolbar .ql-picker-label.ql-active,
+.ql-toolbar .ql-picker-item.ql-selected {
+    color: var(--accent-color) !important;
+    background-color: rgba(138, 43, 226, 0.15);
+}
+
+.ql-toolbar button.ql-active .ql-stroke,
+.ql-toolbar .ql-picker-label.ql-active .ql-stroke,
+.ql-toolbar .ql-picker-item.ql-selected .ql-stroke {
+    stroke: var(--accent-color) !important;
+}
+
+.ql-toolbar button.ql-active .ql-fill,
+.ql-toolbar .ql-picker-label.ql-active .ql-fill,
+.ql-toolbar .ql-picker-item.ql-selected .ql-fill {
+    fill: var(--accent-color) !important;
+}
+
+/* Dropdown Options */
+.ql-toolbar .ql-picker-options {
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    padding: 6px 0;
+    margin-top: 4px;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.ql-toolbar .ql-picker-item {
+    color: var(--primary-text-color);
+    padding: 6px 12px;
+    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+    border-radius: 4px;
+    margin: 0 4px;
+    width: calc(100% - 8px);
+}
+
+.ql-toolbar .ql-picker-item:hover,
+.ql-toolbar .ql-picker-item.ql-selected { /* Hover and selected appearance */
+    background-color: rgba(138, 43, 226, 0.15); /* Subtle accent background */
+    color: var(--accent-color); /* Use accent color for text */
+}
+.ql-toolbar .ql-picker-item .ql-stroke { stroke: var(--primary-text-color); } /* Ensure icons in dropdown use primary text color initially */
+.ql-toolbar .ql-picker-item:hover .ql-stroke,
+.ql-toolbar .ql-picker-item.ql-selected .ql-stroke {
+    stroke: var(--accent-color); /* Accent on hover/select */
+}
+
+/* Add a subtle separator between format groups */
+.ql-toolbar .ql-formats:not(:last-child)::after {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 20px;
+    background-color: var(--border-color);
+    margin-left: 8px;
+    opacity: 0.5;
+}
+
+/* Editor Container */
+.ql-container.ql-snow {
+    border: none; /* Remove Quill's default border */
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: 0 0 8px 8px;
+}
+
+/* Editor Area */
+.ql-editor {
+    font-family: var(--font-main);
+    font-size: 15px; /* Slightly larger for readability */
+    line-height: 1.6;
+    background-color: var(--bg-color);
+    color: var(--primary-text-color);
+    padding: 20px 24px; /* Increased padding for better readability */
+    caret-color: var(--accent-color); /* Make cursor accent color */
+    height: 100%; /* Ensure it fills container */
+    overflow-y: auto; /* Needed if #editor doesn't scroll */
+    box-sizing: border-box; /* Include padding in height */
+    flex: 1;
+    /* Disable spellcheck underlines */
+    text-decoration-skip-ink: none;
+}
+
+/* Disable spellcheck underlines */
+.ql-editor * {
+    text-decoration-skip-ink: none;
+}
+
+/* Remove spellcheck underlines */
+.ql-editor *[spellcheck="true"] {
+    text-decoration: none !important;
+}
+
+/* Disable spellcheck for the editor */
+.ql-editor[spellcheck="false"] {
+    text-decoration: none !important;
+}
+
+/* Placeholder Text */
+.ql-editor.ql-blank::before{
+    color: var(--secondary-text-color);
+    font-style: normal;
+    left: 20px; /* Match padding */
+    right: 20px; /* Match padding */
+    font-size: 15px; /* Match editor font size */
+    pointer-events: none;
+}
+
+/* Content Styles */
+.ql-editor p, .ql-editor ul, .ql-editor ol, .ql-editor pre, .ql-editor blockquote, .ql-editor h1, .ql-editor h2, .ql-editor h3 {
+    margin-bottom: 0.8em; /* Consistent spacing */
+    color: var(--primary-text-color); /* Ensure all inherit base color */
+}
+
+/* Fix heading styles with proper spacing */
+.ql-editor h1 {
+    font-size: 2em;
+    margin-top: 1.2em;
+    margin-bottom: 0.6em;
+    line-height: 1.3;
+}
+
+.ql-editor h2 {
+    font-size: 1.5em;
+    margin-top: 1.1em;
+    margin-bottom: 0.6em;
+    line-height: 1.3;
+}
+
+.ql-editor h3 {
+    font-size: 1.25em;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+    line-height: 1.3;
+}
+
+.ql-editor h4, .ql-editor h5, .ql-editor h6 {
+    font-size: 1.1em;
+    margin-top: 0.9em;
+    margin-bottom: 0.5em;
+    line-height: 1.3;
+}
+
+.ql-editor strong {
+    font-weight: 600; /* Slightly bolder */
+    color: inherit;
+}
+
+.ql-editor em {
+    font-style: italic;
+    color: inherit;
+}
+
+.ql-editor a {
+    color: var(--accent-color-hover); /* Use lighter accent for links */
+    text-decoration: none;
+}
+.ql-editor a:hover {
+    text-decoration: underline;
+}
+
+/* Blockquotes - Fixed styling */
+.ql-editor blockquote {
+    border-left: 3px solid var(--accent-color);
+    color: var(--secondary-text-color);
+    padding: 0.5em 0 0.5em 1em;
+    margin: 1em 0;
+    font-style: italic;
+    background-color: rgba(138, 43, 226, 0.05); /* Subtle background */
+}
+
+/* Lists - Fixed styling */
+.ql-editor ul, .ql-editor ol {
+    padding-left: 1.5em; /* Indentation */
+    margin: 0.8em 0;
+}
+
+.ql-editor li {
+    margin-bottom: 0.3em;
+    line-height: 1.5;
+}
+
+.ql-editor li:not(.ql-direction-rtl)::before {
+    color: var(--secondary-text-color); /* Style list bullets/numbers */
+}
+
+/* Fix nested lists */
+.ql-editor li > ul,
+.ql-editor li > ol {
+    margin-top: 0.3em;
+    margin-bottom: 0.3em;
+}
+
+/* --- End Quill Overrides --- */ 

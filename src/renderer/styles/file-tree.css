@@ -1,0 +1,143 @@
+/* === File Tree Styles === */
+
+/* --- Tree Item Styling --- */
+.tree-item {
+    display: flex;
+    align-items: center;
+    width: 100%; /* Make the item take full width */
+    box-sizing: border-box; /* Include padding in the width */
+    cursor: pointer;
+    border-radius: var(--border-radius);
+    margin: 1px 0; /* Vertical margin only, let padding handle horizontal */
+    position: relative;
+    transition: background-color var(--transition-speed) ease;
+    min-height: 32px;
+    overflow: hidden;
+    padding: 0 8px; /* Re-add horizontal padding for content spacing */
+}
+
+/* Remove specific padding-left from note items here if handled by JS */
+.tree-item.note {
+    /* padding-left: 25px; This is now handled by inline style in JS */
+}
+
+.tree-item:hover {
+    background-color: rgba(255, 255, 255, 0.05); /* Subtle hover */
+}
+
+.tree-item.selected {
+    background-color: rgba(163, 122, 204, 0.2); /* Purple highlight */
+}
+
+.tree-item-content {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    padding: 6px 5px 6px 0; /* Adjust padding, remove right padding */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: relative;
+    min-width: 0; /* Prevents flexbox overflow issues */
+    color: var(--secondary-text-color);
+    transition: color var(--transition-speed) ease;
+}
+
+.tree-item.selected .tree-item-content {
+    color: var(--primary-text-color); /* Brighter text when selected */
+}
+
+/* Indentation - Use padding based on depth */
+.tree-item[style*="padding-left"] .tree-item-content {
+    /* Base padding handled by inline style from renderer.js */
+    /* We might not need this rule anymore */
+}
+
+/* Icons using CSS Mask - Replace Emojis */
+.tree-item-content::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    background-color: var(--secondary-text-color); /* Icon color */
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    flex-shrink: 0; /* Prevent icon shrinking */
+    transition: background-color var(--transition-speed) ease;
+}
+
+.tree-item.selected .tree-item-content::before {
+    background-color: var(--accent-color); /* Icon color when selected */
+}
+
+/* SVG Icons (Base64 encoded to avoid extra files/CSP issues) */
+/* Folder Icon (closed) */
+.tree-item.folder > .tree-item-content::before {
+    -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 20q-.825 0-1.412-.587T2 18V6q0-.825.588-1.412T4 4h6l2 2h8q.825 0 1.413.588T22 8v10q0 .825-.587 1.413T20 20z"/></svg>');
+    mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 20q-.825 0-1.412-.587T2 18V6q0-.825.588-1.412T4 4h6l2 2h8q.825 0 1.413.588T22 8v10q0 .825-.587 1.413T20 20z"/></svg>');
+}
+/* Folder Icon (open) */
+.tree-item.folder.expanded > .tree-item-content::before {
+     -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 20q-.825 0-1.412-.587T2 18V6q0-.825.588-1.412T4 4h6l2 2h8q.825 0 1.413.588T22 8v10q0 .825-.587 1.413T20 20zm0-12v10h16V8h-8.825l-2-2H4z"/></svg>');
+    mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 20q-.825 0-1.412-.587T2 18V6q0-.825.588-1.412T4 4h6l2 2h8q.825 0 1.413.588T22 8v10q0 .825-.587 1.413T20 20zm0-12v10h16V8h-8.825l-2-2H4z"/></svg>');
+}
+/* Note Icon */
+.tree-item.note > .tree-item-content::before {
+     -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M6 22q-.825 0-1.412-.587T4 20V4q0-.825.588-1.412T6 2h8l6 6v12q0 .825-.587 1.413T18 22zm7-13V4H6v16h12V9zM6 4v5-5 16z"/></svg>');
+    mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M6 22q-.825 0-1.412-.587T4 20V4q0-.825.588-1.412T6 2h8l6 6v12q0 .825-.587 1.413T18 22zm7-13V4H6v16h12V9zM6 4v5-5 16z"/></svg>');
+}
+
+/* --- Delete Button Styling (Inside Tree Item) --- */
+.delete-item-button {
+    background: none;
+    border: none;
+    color: var(--secondary-text-color);
+    cursor: pointer;
+    padding: 4px; /* Small padding around the icon */
+    margin-left: auto; /* Push to the far right */
+    flex-shrink: 0; /* Prevent shrinking */
+    opacity: 0; /* Hidden by default */
+    pointer-events: none; /* Not interactive when hidden */
+    transition: opacity var(--transition-speed) ease, color var(--transition-speed) ease;
+    display: flex; /* Use flex for centering icon */
+    align-items: center;
+    justify-content: center;
+    width: 24px; /* Fixed size */
+    height: 24px; /* Fixed size */
+    border-radius: var(--border-radius);
+    background-color: transparent; /* Ensure transparent background */
+}
+
+.delete-item-button::before { /* Use pseudo-element for the icon */
+    content: '';
+    display: block;
+    width: 16px;
+    height: 16px;
+    background-color: currentColor; /* Use the button's color */
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    /* Trash Can SVG Icon */
+    -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21zM17 6H7v13h10zM9 17h2V8H9zm4 0h2V8h-2zM7 6v13z"/></svg>');
+    mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21zM17 6H7v13h10zM9 17h2V8H9zm4 0h2V8h-2zM7 6v13z"/></svg>');
+}
+
+/* Show button on hover/focus of the parent item */
+.tree-item:hover .delete-item-button,
+.tree-item:focus-visible .delete-item-button {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.delete-item-button:hover {
+    color: var(--error-color); /* Red on hover */
+    background-color: rgba(229, 115, 115, 0.1); /* Subtle red background */
+} 

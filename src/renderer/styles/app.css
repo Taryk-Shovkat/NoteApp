@@ -1,0 +1,151 @@
+/* === Main Application Layout Styles === */
+
+/* --- Main App View --- */
+#main-app-view {
+    display: none; /* Hide initially */
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    /* No centering needed here as it should fill the view */
+}
+
+#main-app-view.visible {
+    opacity: 1; /* Fade in */
+}
+
+/* --- Sidebar --- */
+#sidebar {
+    width: 260px;
+    background-color: var(--surface-color);
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--border-color);
+    flex-shrink: 0;
+    /* overflow: hidden; // Keep overflow on container below */
+    transition: width var(--transition-speed) ease; /* Allow smooth resizing if needed */
+    position: relative; /* Needed for absolute positioning or bottom placement */
+}
+
+#sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+    height: 50px; /* Fixed height */
+}
+
+#sidebar-header h3 {
+    color: var(--primary-text-color);
+    margin: 0;
+    font-size: 1.1em;
+    font-weight: 500;
+}
+
+#sidebar-header button,
+#sidebar > button#add-note-button {
+    background: none;
+    border: 1px solid var(--border-color);
+    color: var(--secondary-text-color);
+    font-size: 0.9em;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: var(--border-radius);
+    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+}
+
+#sidebar-header button:hover,
+#sidebar > button#add-note-button:hover {
+    background-color: rgba(163, 122, 204, 0.15); /* Subtle purple background */
+    border-color: var(--accent-color);
+    color: var(--accent-color-hover);
+}
+
+#sidebar > button#add-note-button {
+    margin: 10px 15px;
+    padding: 10px;
+    text-align: center;
+    width: calc(100% - 30px);
+    box-sizing: border-box;
+    background-color: transparent; /* Make it less prominent */
+    border: 1px dashed var(--border-color); /* Dashed border */
+    color: var(--secondary-text-color);
+}
+
+#sidebar > button#add-note-button:hover {
+     background-color: var(--accent-color);
+     border-color: var(--accent-color);
+     color: #ffffff;
+     border-style: solid;
+}
+
+
+#sidebar > button#add-note-button:disabled {
+    background-color: transparent;
+    color: #666;
+    cursor: not-allowed;
+    border-color: #444;
+    border-style: dashed;
+}
+
+#file-tree-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 10px 0;
+}
+
+#file-tree {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#file-tree li {
+    padding: 0;
+    margin: 0;
+    position: relative; /* Needed for absolute positioning of children */
+}
+
+/* Remove old specific list styles */
+#folder-list,
+#note-list {
+    display: none; /* Hide old lists completely */
+}
+
+#sidebar h3, #sidebar h4 {
+   display: none; /* Hide old headings */
+}
+
+.sidebar-logout-button { /* Added styles for logout button */
+    margin: 10px 15px; /* Similar margin to add note */
+    padding: 8px 10px;
+    width: calc(100% - 30px);
+    box-sizing: border-box;
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--secondary-text-color);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    text-align: center;
+    font-size: 0.9em;
+    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+    margin-top: auto; /* Push to the bottom */
+    margin-bottom: 15px; /* Add some space at the very bottom */
+}
+
+.sidebar-logout-button:hover {
+    background-color: rgba(229, 115, 115, 0.1); /* Subtle error color background */
+    border-color: var(--error-color);
+    color: var(--error-color);
+}
+
+/* --- Main Content Area --- */
+#main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-color);
+    overflow: hidden; /* Important for Quill layout */
+} 

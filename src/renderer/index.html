@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://cdn.quilljs.com; img-src 'self' data:;">
+    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'">
+    <title>Modern Note App</title>
+    <!-- Include Quill stylesheet -->
+    <link href="../../node_modules/quill/dist/quill.snow.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <!-- Organized Stylesheets -->
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/auth.css">
+    <link rel="stylesheet" href="styles/app.css">
+    <link rel="stylesheet" href="styles/file-tree.css">
+    <link rel="stylesheet" href="styles/editor.css">
+    <link rel="stylesheet" href="styles/modals.css">
+    <link rel="stylesheet" href="styles/indicators.css">
+</head>
+<body>
+    <div id="app-container">
+
+        <!-- Authentication View -->
+        <div id="auth-view">
+            <div id="login-section">
+                <h2>Login</h2>
+                <div id="login-form">
+                    <input type="text" id="login-username" placeholder="Username">
+                    <input type="password" id="login-password" placeholder="Password">
+                    <button id="login-button">Login</button>
+                </div>
+                <p class="toggle-auth">Need an account? <a href="#" id="show-register">Register</a></p>
+            </div>
+
+            <div id="register-section" style="display: none;">
+                 <h2>Register</h2>
+                 <div id="register-form">
+                      <input type="text" id="register-username" placeholder="Username">
+                      <input type="email" id="register-email" placeholder="Email">
+                      <input type="password" id="register-password" placeholder="Password">
+                      <button id="register-button">Register</button>
+                 </div>
+                <p class="toggle-auth">Already have an account? <a href="#" id="show-login">Login</a></p>
+            </div>
+
+            <p id="auth-message"></p>
+        </div>
+
+        <!-- Main Application View (Initially Hidden) -->
+        <div id="main-app-view">
+            <!-- Sidebar for Folders and Notes (Tree View) -->
+            <div id="sidebar">
+                <div id="sidebar-header">
+                    <h3>Explorer</h3>
+                    <button id="add-folder-button" title="Add New Folder">New Folder</button> 
+                </div>
+                <div id="file-tree-container">
+                    <!-- Tree view will be dynamically generated here -->
+                    <ul id="file-tree"></ul>
+                </div>
+                 <button id="add-note-button">+ New Note</button> <!-- Keep for now, adds to selected folder -->
+                 <button id="logout-button" class="sidebar-logout-button">Log Out</button> <!-- Added Log Out Button -->
+
+            </div>
+
+            <!-- Main Content Area for Editor -->
+            <div id="main-content">
+                <!-- Quill Editor Structure -->
+                <div id="editor-container">
+                    <!-- Editor Placeholder Message -->
+                    <div id="editor-placeholder-message">
+                        Select a note from the explorer to view or edit its content.
+                    </div>
+                    <!-- Save Indicator -->
+                    <div id="save-indicator">
+                        <span class="save-icon"></span>
+                        <span class="save-text">Saving...</span>
+                    </div>
+                    <!-- Create the toolbar container -->
+                    <div id="toolbar"></div>
+                    <!-- Create the editor container -->
+                    <div id="editor"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Input Modal Dialog -->
+    <div id="input-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h4 id="modal-title">Enter Name</h4>
+            <input type="text" id="modal-input">
+            <p id="modal-error" class="error-message"></p>
+            <div class="modal-buttons">
+                <button id="modal-cancel-button" class="cancel">Cancel</button>
+                <button id="modal-confirm-button">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Link Modal Dialog -->
+    <div id="link-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h4>Insert Link</h4>
+            <input type="text" id="link-url" placeholder="Enter URL...">
+            <input type="text" id="link-text" placeholder="Link text (optional)">
+            <p id="link-error" class="error-message"></p>
+            <div class="modal-buttons">
+                <button id="link-cancel-button" class="cancel">Cancel</button>
+                <button id="link-confirm-button">Insert</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm Modal Dialog -->
+    <div id="confirm-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <p id="confirm-modal-text"></p>
+            <div class="modal-buttons">
+                <button id="confirm-modal-cancel-button" class="cancel">Cancel</button>
+                <button id="confirm-modal-confirm-button">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include Quill library -->
+    <script src="../../node_modules/quill/dist/quill.js"></script>
+    <script src="renderer.js"></script>
+
+</body>
+</html> 
