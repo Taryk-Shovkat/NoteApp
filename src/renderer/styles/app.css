@@ -20,9 +20,9 @@
     background-color: var(--surface-color);
     display: flex;
     flex-direction: column;
-    border-right: 1px solid var(--border-color);
+    /* border-right: 1px solid var(--border-color); */ /* Removed border */
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1); /* Added subtle shadow for separation */
     flex-shrink: 0;
-    /* overflow: hidden; // Keep overflow on container below */
     transition: width var(--transition-speed) ease; /* Allow smooth resizing if needed */
     position: relative; /* Needed for absolute positioning or bottom placement */
 }
@@ -31,10 +31,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 15px;
+    padding: 12px 18px; /* Increased padding */
     border-bottom: 1px solid var(--border-color);
     flex-shrink: 0;
-    height: 50px; /* Fixed height */
+    height: 55px; /* Slightly increased height */
 }
 
 #sidebar-header h3 {
@@ -51,26 +51,27 @@
     color: var(--secondary-text-color);
     font-size: 0.9em;
     cursor: pointer;
-    padding: 5px 10px;
+    padding: 6px 12px; /* Adjusted padding */
     border-radius: var(--border-radius);
-    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+    /* Base transition already applied in base.css */
 }
 
 #sidebar-header button:hover,
 #sidebar > button#add-note-button:hover {
-    background-color: rgba(163, 122, 204, 0.15); /* Subtle purple background */
+    background-color: rgba(138, 43, 226, 0.1); /* Use accent color transparently */
     border-color: var(--accent-color);
     color: var(--accent-color-hover);
+    box-shadow: var(--shadow-sm); /* Add subtle shadow on hover */
 }
 
 #sidebar > button#add-note-button {
-    margin: 10px 15px;
+    margin: 15px 18px; /* Adjusted margin */
     padding: 10px;
     text-align: center;
-    width: calc(100% - 30px);
+    width: calc(100% - 36px); /* Adjusted width */
     box-sizing: border-box;
-    background-color: transparent; /* Make it less prominent */
-    border: 1px dashed var(--border-color); /* Dashed border */
+    background-color: transparent;
+    border: 1px dashed var(--border-color);
     color: var(--secondary-text-color);
 }
 
@@ -79,8 +80,8 @@
      border-color: var(--accent-color);
      color: #ffffff;
      border-style: solid;
+     box-shadow: var(--shadow-md); /* Add more shadow on hover */
 }
-
 
 #sidebar > button#add-note-button:disabled {
     background-color: transparent;
@@ -93,7 +94,7 @@
 #file-tree-container {
     flex-grow: 1;
     overflow-y: auto;
-    padding: 10px 0;
+    padding: 15px 0; /* Increased padding */
 }
 
 #file-tree {
@@ -119,9 +120,9 @@
 }
 
 .sidebar-logout-button { /* Added styles for logout button */
-    margin: 10px 15px; /* Similar margin to add note */
-    padding: 8px 10px;
-    width: calc(100% - 30px);
+    margin: 15px 18px; /* Adjusted margin */
+    padding: 8px 12px; /* Adjusted padding */
+    width: calc(100% - 36px); /* Adjusted width */
     box-sizing: border-box;
     background-color: transparent;
     border: 1px solid var(--border-color);
@@ -130,15 +131,16 @@
     cursor: pointer;
     text-align: center;
     font-size: 0.9em;
-    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+    /* Base transition already applied in base.css */
     margin-top: auto; /* Push to the bottom */
-    margin-bottom: 15px; /* Add some space at the very bottom */
+    margin-bottom: 18px; /* Adjusted margin */
 }
 
 .sidebar-logout-button:hover {
     background-color: rgba(229, 115, 115, 0.1); /* Subtle error color background */
     border-color: var(--error-color);
     color: var(--error-color);
+    box-shadow: var(--shadow-sm); /* Add subtle shadow on hover */
 }
 
 /* --- Main Content Area --- */

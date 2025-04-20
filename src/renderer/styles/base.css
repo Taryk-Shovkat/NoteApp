@@ -2,19 +2,21 @@
 
 /* --- Variables --- */
 :root {
-    --bg-color: #1a1d24; /* Slightly desaturated dark blue/grey */
-    --surface-color: #232730; /* Slightly lighter surface */
+    --bg-color: #1e2128; /* Slightly softer dark blue/grey */
+    --surface-color: #262a33; /* Slightly lighter softer surface */
     --primary-text-color: #e0e0e0;
     --secondary-text-color: #a0a0a0;
     --accent-color: #8A2BE2; /* Darker, more saturated violet */
     --accent-color-hover: #9F40FF; /* Lighter violet for hover */
-    --border-color: #353a45;
+    --border-color: #3a404d; /* Adjusted border color */
     --error-color: #e57373;
     --success-color: #81c784;
     --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     --font-mono: 'Consolas', 'Courier New', monospace;
     --transition-speed: 0.2s;
-    --border-radius: 6px;
+    --border-radius: 8px; /* Increased border-radius */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 /* --- Base Styles --- */
@@ -112,4 +114,9 @@ input:focus:not(:focus-visible),
     box-shadow: none; /* Remove outer glow */
 }
 
-/* Ensure modals trap focus (requires JS) */ 
+/* Ensure modals trap focus (requires JS) */
+
+/* Apply base transition to buttons */
+button {
+    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease, border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+} 

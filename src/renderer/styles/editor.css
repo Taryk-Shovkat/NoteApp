@@ -4,10 +4,17 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    background-color: var(--surface-color); /* Match sidebar surface */
-    border-left: 1px solid var(--border-color); /* Add subtle separator */
-    position: relative; /* For placeholder */
-    overflow: hidden; /* Contain toolbar and editor */
+    background-color: var(--bg-color); /* Change background to main bg */
+    /* border-left: 1px solid var(--border-color); */ /* Remove border */
+    position: relative;
+    overflow: hidden;
+    transition: box-shadow var(--transition-speed) ease;
+    border-radius: var(--border-radius); /* Add border radius to the container */
+    box-shadow: 0 0 0 1px var(--border-color); /* Use subtle border-like shadow */
+}
+
+#editor-container:focus-within {
+    box-shadow: 0 0 0 1px var(--accent-color), var(--shadow-md); /* Highlight with accent and shadow */
 }
 
 #editor-placeholder-message {
@@ -66,11 +73,11 @@
 /* Toolbar */
 .ql-toolbar.ql-snow {
     background-color: var(--surface-color);
-    border: none; /* Remove default top border */
-    border-bottom: 1px solid var(--border-color); /* Add bottom border */
-    padding: 10px 16px;
-    border-top-left-radius: 0; /* Match container */
-    border-top-right-radius: 0; /* Match container */
+    border: none;
+    border-bottom: 1px solid var(--border-color);
+    padding: 8px 14px; /* Adjusted padding */
+    border-top-left-radius: var(--border-radius); /* Match container */
+    border-top-right-radius: var(--border-radius); /* Match container */
     box-sizing: border-box;
     position: sticky;
     top: 0;
@@ -78,8 +85,8 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 4px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    gap: 5px; /* Adjusted gap */
+    box-shadow: var(--shadow-sm); /* Softer shadow */
 }
 
 .ql-toolbar .ql-formats {
@@ -100,9 +107,9 @@
 }
 .ql-toolbar .ql-picker-label { /* Dropdown labels */
     color: var(--secondary-text-color);
-    transition: color var(--transition-speed) ease;
-    padding: 4px 8px;
-    border-radius: 4px;
+    transition: color var(--transition-speed) ease, background-color var(--transition-speed) ease;
+    padding: 5px 8px; /* Adjusted padding */
+    border-radius: var(--border-radius); /* Use global radius */
 }
 .ql-toolbar .ql-picker-label::before {
     line-height: 24px; /* Align text better */
@@ -111,14 +118,16 @@
 /* Buttons and Pickers Hover/Active/Selected */
 .ql-toolbar button,
 .ql-toolbar .ql-picker-label {
-    border-radius: 4px;
+    border-radius: var(--border-radius); /* Use global radius */
     transition: all var(--transition-speed) ease;
     background-color: transparent;
     border: none;
-    padding: 4px 8px;
+    padding: 5px 8px; /* Adjusted padding */
     display: flex;
     align-items: center;
     justify-content: center;
+    min-width: 30px; /* Ensure minimum size */
+    min-height: 30px;
 }
 
 /* Override Quill's default hover styles */
@@ -168,13 +177,18 @@
 
 /* Dropdown Options */
 .ql-toolbar .ql-picker-options {
+    position: absolute; /* Ensure absolute positioning */
+    top: 100%; /* Position below the parent */
+    left: 0; /* Align to the left of the parent format group */
+    z-index: 10; /* Ensure it sits above toolbar content */
     background-color: var(--surface-color);
     border: 1px solid var(--border-color);
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    padding: 6px 0;
-    margin-top: 4px;
-    animation: fadeIn 0.2s ease;
+    border-radius: var(--border-radius); /* Use global radius */
+    box-shadow: var(--shadow-md); /* Use defined shadow */
+    padding: 8px; /* Add padding around items */
+    margin-top: 4px; /* Add small gap after positioning below parent */
+    min-width: 150px; /* Ensure a minimum width */
+    animation: fadeIn 0.15s ease-out;
 }
 
 @keyframes fadeIn {
@@ -184,11 +198,11 @@
 
 .ql-toolbar .ql-picker-item {
     color: var(--primary-text-color);
-    padding: 6px 12px;
+    padding: 8px 12px; /* Adjusted padding */
     transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
-    border-radius: 4px;
-    margin: 0 4px;
-    width: calc(100% - 8px);
+    border-radius: var(--border-radius); /* Use global radius */
+    margin: 2px 0; /* Vertical margin */
+    /* width: calc(100% - 8px); Remove fixed width */
 }
 
 .ql-toolbar .ql-picker-item:hover,
@@ -215,28 +229,28 @@
 
 /* Editor Container */
 .ql-container.ql-snow {
-    border: none; /* Remove Quill's default border */
+    border: none;
     flex: 1;
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    border-radius: 0 0 8px 8px;
+    border-bottom-left-radius: var(--border-radius); /* Match container */
+    border-bottom-right-radius: var(--border-radius); /* Match container */
 }
 
 /* Editor Area */
 .ql-editor {
     font-family: var(--font-main);
-    font-size: 15px; /* Slightly larger for readability */
-    line-height: 1.6;
+    font-size: 15px;
+    line-height: 1.7; /* Increased line height */
     background-color: var(--bg-color);
     color: var(--primary-text-color);
-    padding: 20px 24px; /* Increased padding for better readability */
-    caret-color: var(--accent-color); /* Make cursor accent color */
-    height: 100%; /* Ensure it fills container */
-    overflow-y: auto; /* Needed if #editor doesn't scroll */
-    box-sizing: border-box; /* Include padding in height */
+    padding: 24px 28px; /* Increased padding */
+    caret-color: var(--accent-color);
+    height: 100%;
+    overflow-y: auto;
+    box-sizing: border-box;
     flex: 1;
-    /* Disable spellcheck underlines */
     text-decoration-skip-ink: none;
 }
 
@@ -348,6 +362,22 @@
 .ql-editor li > ol {
     margin-top: 0.3em;
     margin-bottom: 0.3em;
+}
+
+/* Code Blocks */
+.ql-editor pre, 
+.ql-editor pre.ql-syntax {
+    background-color: rgba(0, 0, 0, 0.1); /* Darker, slightly transparent background */
+    color: var(--secondary-text-color);
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    border-radius: var(--border-radius);
+    padding: 0.8em 1em;
+    margin: 1em 0;
+    overflow-x: auto; /* Allow horizontal scrolling */
+    white-space: pre-wrap; /* Wrap lines but preserve spacing */
+    word-wrap: break-word;
+    border: 1px solid var(--border-color);
 }
 
 /* --- End Quill Overrides --- */ 

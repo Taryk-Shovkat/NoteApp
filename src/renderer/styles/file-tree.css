@@ -4,16 +4,16 @@
 .tree-item {
     display: flex;
     align-items: center;
-    width: 100%; /* Make the item take full width */
-    box-sizing: border-box; /* Include padding in the width */
+    width: calc(100% - 16px); /* Adjust width for margin */
+    margin: 2px 8px; /* Add horizontal margin, slightly increase vertical */
+    box-sizing: border-box;
     cursor: pointer;
     border-radius: var(--border-radius);
-    margin: 1px 0; /* Vertical margin only, let padding handle horizontal */
     position: relative;
-    transition: background-color var(--transition-speed) ease;
-    min-height: 32px;
+    transition: background-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+    min-height: 34px; /* Slightly taller */
     overflow: hidden;
-    padding: 0 8px; /* Re-add horizontal padding for content spacing */
+    padding: 0 10px; /* Increase horizontal padding */
 }
 
 /* Remove specific padding-left from note items here if handled by JS */
@@ -22,23 +22,24 @@
 }
 
 .tree-item:hover {
-    background-color: rgba(255, 255, 255, 0.05); /* Subtle hover */
+    background-color: rgba(255, 255, 255, 0.07); /* Slightly more visible hover */
 }
 
 .tree-item.selected {
-    background-color: rgba(163, 122, 204, 0.2); /* Purple highlight */
+    background-color: rgba(138, 43, 226, 0.2); /* Use accent color directly (slightly adjusted opacity) */
+    box-shadow: inset 0 0 0 1px rgba(138, 43, 226, 0.5); /* Subtle inner border */
 }
 
 .tree-item-content {
     display: flex;
     align-items: center;
     flex-grow: 1;
-    padding: 6px 5px 6px 0; /* Adjust padding, remove right padding */
+    padding: 6px 8px 6px 0; /* Increase right padding */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     position: relative;
-    min-width: 0; /* Prevents flexbox overflow issues */
+    min-width: 0;
     color: var(--secondary-text-color);
     transition: color var(--transition-speed) ease;
 }
@@ -72,7 +73,7 @@
 }
 
 .tree-item.selected .tree-item-content::before {
-    background-color: var(--accent-color); /* Icon color when selected */
+    background-color: var(--accent-color-hover); /* Use lighter accent for selected icon */
 }
 
 /* SVG Icons (Base64 encoded to avoid extra files/CSP issues) */
@@ -103,14 +104,14 @@
     flex-shrink: 0; /* Prevent shrinking */
     opacity: 0; /* Hidden by default */
     pointer-events: none; /* Not interactive when hidden */
-    transition: opacity var(--transition-speed) ease, color var(--transition-speed) ease;
+    transition: opacity var(--transition-speed) ease, color var(--transition-speed) ease, background-color var(--transition-speed) ease; /* Add background-color transition */
     display: flex; /* Use flex for centering icon */
     align-items: center;
     justify-content: center;
     width: 24px; /* Fixed size */
     height: 24px; /* Fixed size */
-    border-radius: var(--border-radius);
-    background-color: transparent; /* Ensure transparent background */
+    border-radius: var(--border-radius); /* Already set, ensure consistency */
+    background-color: transparent;
 }
 
 .delete-item-button::before { /* Use pseudo-element for the icon */
@@ -139,5 +140,5 @@
 
 .delete-item-button:hover {
     color: var(--error-color); /* Red on hover */
-    background-color: rgba(229, 115, 115, 0.1); /* Subtle red background */
+    background-color: rgba(229, 115, 115, 0.15); /* Slightly stronger red background */
 } 
